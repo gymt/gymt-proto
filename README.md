@@ -25,7 +25,7 @@ node -v
 Verify NPM is installed globally. I am currently on npm 6.9.x.
 Check your npm version with
 ```
-node -v
+npm -v
 ```
 To update npm, use
 ```
