@@ -1,17 +1,37 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
 import AuthScreen from '../screens/AuthScreen';
-import HomeScreen from '../screens/HomeScreen';
+import HomeScreen from '../screens/AppStack/HomeScreen';
+import ExperienceLevelScreen from '../screens/WelcomeStack/ExperienceLevelScreen';
 
-const SwitchNavigatorConfig = {
-    initialRouteName: 'Auth'
-};
+const AppStack = createStackNavigator(
+    {
+        Home: HomeScreen
+    },
+    {
+        initialRouteName: 'Home'
+    }
+);
 
-const RouteConfig = {
-    Auth: AuthScreen,
-    Home: HomeScreen
-};
+const WelcomeStack = createStackNavigator(
+    {
+        ExperienceLevel: ExperienceLevelScreen
+    },
+    {
+        initialRouteName: 'ExperienceLevel',
+        headerMode: 'none'
+    }
+);
 
-const SwitchNavigator = createSwitchNavigator(RouteConfig, SwitchNavigatorConfig);
+const RootNavigator = createSwitchNavigator(
+    {
+        Auth: AuthScreen,
+        App: AppStack,
+        Welcome: WelcomeStack
+    },
+    {
+        initialRouteName: 'Auth'
+    }
+);
 
-export default createAppContainer(SwitchNavigator);
+export default createAppContainer(RootNavigator);
