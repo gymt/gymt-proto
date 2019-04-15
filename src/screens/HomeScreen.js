@@ -6,54 +6,55 @@ import PrimaryButton from '../components/patterns/PrimaryButton';
 import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
 
-export default function HomeScreen(props) {
-    function goToLifts() {
-        props.navigation.navigate('Lifts')
-    }
+import BackgroundStyles from '../styles/BackgroundStyles';
+import LayoutStyles from '../styles/LayoutStyles';
+import SpacingStyles from '../styles/SpacingStyles';
 
+export default function HomeScreen(props) {
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.container}>
-                <PrimaryButton
-                    containerStyle={styles.tile}
-                    buttonStyle={styles.button}
-                    icon={<Icon name="space-shuttle" color={Colors.pureWhite} size={64} />}
-                    title="WORK OUT"
-                    onPress={goToLifts}
-                    titleProps={{ h1: true }}
-                />
-                <PrimaryButton
-                    containerStyle={styles.tile}
-                    buttonStyle={styles.button}
-                    icon={<Icon name="pencil" color={Colors.pureWhite} size={64} />}
-                    title="PLAN"
-                    titleProps={{ h1: true }}
-                />
-                <PrimaryButton
-                    containerStyle={{ ...styles.tile, paddingBottom: Layout.spacing.xl }}
-                    buttonStyle={styles.button}
-                    icon={<Icon name="area-chart" color={Colors.pureWhite} size={64} />}
-                    title="STATS"
-                    titleProps={{ h1: true }}
-                />
-            </View>
+        <SafeAreaView style={styles.page}>
+            <PrimaryButton
+                containerStyle={styles.tile}
+                buttonStyle={styles.button}
+                icon={<Icon name="space-shuttle" color={Colors.pureWhite} size={64} />}
+                title="WORK OUT"
+                titleProps={{ h1: true }}
+            />
+            <PrimaryButton
+                containerStyle={styles.tile}
+                buttonStyle={styles.button}
+                icon={<Icon name="pencil" color={Colors.pureWhite} size={64} />}
+                title="PLAN"
+                titleProps={{ h1: true }}
+            />
+            <PrimaryButton
+                containerStyle={styles.tile}
+                buttonStyle={styles.button}
+                icon={<Icon name="area-chart" color={Colors.pureWhite} size={64} />}
+                title="STATS"
+                titleProps={{ h1: true }}
+            />
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: Colors.dark
-    },
+    page: StyleSheet.flatten([
+        LayoutStyles.vertical,
+        BackgroundStyles.pageBackground,
+        { 
+            flex: 1,
+        },
+    ]),
     button: {
         flexDirection: 'column',
         height: '100%'
     },
-    tile: {
-        flex: 1,
-        paddingTop: Layout.spacing.xl,
-        paddingLeft: Layout.spacing.xl,
-        paddingRight: Layout.spacing.xl
-    }
+    tile: StyleSheet.flatten([
+        SpacingStyles['m-a-lg'],
+        {
+            backgroundColor: 'transparent',
+            flex: 1
+        }
+    ])
 });
