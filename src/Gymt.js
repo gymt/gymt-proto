@@ -1,8 +1,11 @@
 import React from 'react';
 import {
- AppLoading, Asset, Font, Icon 
+    AppLoading, Asset, Font,
 } from 'expo';
+import { ThemeProvider } from 'react-native-elements';
 import AppContainer from './navigation/AppContainer';
+import Theme from './constants/Theme';
+import Typography from './constants/Typography';
 
 export default class Gymt extends React.Component {
   state = {
@@ -10,34 +13,37 @@ export default class Gymt extends React.Component {
   };
 
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+      if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+          return (
+              <AppLoading
+                  startAsync={this._loadResourcesAsync}
+                  onError={this._handleLoadingError}
+                  onFinish={this._handleFinishLoading}
+              />
+          );
+      }
       return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
+          <ThemeProvider theme={Theme}>
+              <AppContainer />
+          </ThemeProvider>
       );
-    } 
-      return (
-        <AppContainer />
-      );
-    
   }
 
   _loadResourcesAsync = async () => Promise.all([
       Asset.loadAsync([
-        require('./assets/images/robot-dev.png'),
-        require('./assets/images/robot-prod.png'),
+          /* TODO prelaod any static images used in app */
+          // require('./assets/images/robot-dev.png'),
       ]),
       Font.loadAsync({
-        // This is the font that we are using for our tab bar
-        ...Icon.Ionicons.font,
-        // We include SpaceMono because we use it in HomeScreen.js. Feel free
-        // to remove this if you are not using it in your app
-        'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+          /* TODO import all the Raleway font faces */
+          [Typography.primaryBlack]: require('./assets/fonts/Raleway-Black.ttf'),
+          [Typography.primaryBlackItalic]: require('./assets/fonts/Raleway-BlackItalic.ttf'),
+          [Typography.primaryBold]: require('./assets/fonts/Raleway-Bold.ttf'),
+          [Typography.primaryBoldItalic]: require('./assets/fonts/Raleway-BoldItalic.ttf'),
+          [Typography.primary]: require('./assets/fonts/Raleway-Regular.ttf'),
+          [Typography.primaryItalic]: require('./assets/fonts/Raleway-Italic.ttf'),
       }),
-    ]);
+  ]);
 
   _handleLoadingError = (error) => {
       // In this case, you might want to report the error to your error
