@@ -6,26 +6,30 @@ import {
 import { SafeAreaView } from 'react-navigation';
 import {
     Input,
+    Button,
     Text,
     Icon,
 } from 'react-native-elements';
-import PrimaryButton from '../components/patterns/PrimaryButton';
-
-import BackgroundStyles from '../styles/BackgroundStyles';
 import LayoutStyles from '../styles/LayoutStyles';
 import SpacingStyles from '../styles/SpacingStyles';
 import Colors from '../constants/Colors';
-import Layout from '../constants/Layout';
 import Typography from '../constants/Typography';
 
 export default function AuthScreen(props) {
-    function goToHome() {
-        props.navigation.navigate('Home')
+    function go() {
+        // TODO
+        const IS_FIRST_TIME_USER = true;
+
+        if (IS_FIRST_TIME_USER) {
+            props.navigation.navigate('Welcome')
+        } else {
+            props.navigation.navigate('App')
+        }
     }
 
     return (
-        <SafeAreaView style={styles.page}>
-            <View style={styles.container}>
+        <SafeAreaView style={LayoutStyles.page}>
+            <View style={LayoutStyles.pageContainer}>
                 <Text h1 style={styles.title}>PUMPT</Text>
                 <View style={styles.loginBox}>
                     <Input
@@ -59,9 +63,8 @@ export default function AuthScreen(props) {
                         }
                     />
                 </View>
-                <PrimaryButton
-                    onPress={goToHome}
-                    buttonStyle={styles.button}
+                <Button
+                    onPress={go}
                     title="GO"
                 />
             </View>
@@ -70,21 +73,6 @@ export default function AuthScreen(props) {
 }
 
 const styles = StyleSheet.create({
-    page: StyleSheet.flatten([
-        BackgroundStyles.pageBackground,
-        { 
-            flex: 1,
-        },
-    ]),
-    container: StyleSheet.flatten([
-        LayoutStyles.vertical,
-        SpacingStyles['m-l-xl'],
-        SpacingStyles['m-r-xl'],
-        {
-            flex: 1,
-            justifyContent: 'center',
-        },
-    ]),
     title: StyleSheet.flatten([
         SpacingStyles['m-b-lg'],
         {
@@ -105,7 +93,4 @@ const styles = StyleSheet.create({
     input: StyleSheet.flatten([
         SpacingStyles['m-b-lg'],
     ]),
-    button: {
-        borderRadius: 20,
-    }
 });
